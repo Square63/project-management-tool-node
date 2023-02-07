@@ -37,10 +37,13 @@ const userSchema = new mongoose.Schema({
       required: true
     }
   }],
+  resetPasswordToken: {
+    type: String,
+  },
   role: {
     type: String,
     required: true,
-    enum: ['project manager', 'developer', 'sqa']
+    enum: ['project-manager', 'developer', 'sqa']
   }
 }, {
   timestamps: true
@@ -54,7 +57,7 @@ userSchema.virtual('tasks', {
 })
 
 userSchema.statics.findByCredentials = async (email, password) => {
-  const user = await User.findOne({email})  
+  const user = await User.findOne({email})
 
   if(!user) {
     throw new Error('User not found')
@@ -78,11 +81,22 @@ userSchema.methods.generateAuthToken = async function() {
   return token
 }
 
+userSchema.methods.generateResetPasswordToken = async function() {
+  const user = this
+  const expiry = new Date().setMinutes(new Date().getMinutes() + 5)
+  const resetPasswordToken = jwt.sign({_id: user._id.toString(), expiry }, process.env.JWT_SECRET)
+  user.resetPasswordToken = resetPasswordToken
+  await user.save()
+
+  return resetPasswordToken
+}
+
 userSchema.methods.toJSON = function() {
   const user = this
   const userObject = user.toObject()
   delete userObject.tokens
   delete userObject.password
+  delete userObject.resetPasswordToken
 
   return userObject
 }
@@ -100,7 +114,7 @@ userSchema.pre('save', async function(next){
 
 userSchema.pre('remove', async function(next){
   const user = this
-  await Task.remove({owner: user._id})
+  await Task.remove({assignee: user._id})
   next()
 })
 const User = mongoose.model('User', userSchema)
