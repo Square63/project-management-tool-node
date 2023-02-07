@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      PM Tool
+    </title>
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+
+  <body>
+    <form action="/users" method="post">
+      {{>header}}
+      <h2>Signup</h2>
+      <div class="input-field">
+          <input type="text" name="name" id="name" placeholder="Enter name">
+      </div>
+      <div class="input-field">
+          <input type="email" name="email" id="email" placeholder="Enter email">
+      </div>
+      <select class="input-field" name="role" id="role" placeholder="Select Role" required>
+        <option value="project-manager">Project Manager</option>
+        <option value="developer">Developer</option>
+        <option value="sqa">Sqa</option>
+      </select>
+      <div class="input-field">
+          <input type="password" name="password" id="password" placeholder="Enter Password">
+      </div>
+      <div class="input-field">
+          <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Re-enter Password">
+      </div>
+      <input type="submit" value="Signup">
+
+      <br>
+      <a href="/users/login">Log in</a>
+      <br>
+      <a href="/users/forgotPassword">Forgot Password</a>
+    </form>
+  </body>
+</html>

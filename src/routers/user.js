@@ -18,21 +18,42 @@ router.post('/users', async(req, res) => {
 	const user = new User(req.body)
 
 	try {
+		if(req.body.password !== req.body.passwordConfirmation){
+			throw new Error("Passwords do not match")
+		}
+
 		await user.save()
 		const token = await user.generateAuthToken()
-		res.status(201).send({user, token})
+		res.render('index', { message: "Registered Successfully"})
 	} catch(error) {
-		res.status(400).send({error: error.message})
+		res.render('signup', {error: error.message})
 	}
+})
+
+router.get('/users/login', (req, res) => {
+  res.render('login')
+})
+
+router.get('/users/updatePassword', (req, res) => {
+  res.render('updatePassword', {email: req.query.email, token: req.query.token})
+})
+
+router.get('/users/signup', (req, res) => {
+  res.render('signup')
+})
+
+router.get('/users/forgotPassword', (req, res) => {
+  res.render('forgotPassword')
 })
 
 router.post('/users/login', async(req, res) => {
 	try {
 		const user = await User.findByCredentials(req.body.email, req.body.password)
 		const token = await user.generateAuthToken()
-		res.send({user, token})
+		req.session.token = token
+		res.redirect('/')
 	} catch(error) {
-		res.status(400).send({error: error.message})
+		res.render('login', {error: error.message})
 	}
 })
 
@@ -45,9 +66,10 @@ router.post('/users/logout', auth, async(req, res) => {
 
 		await user.save()
 
-		res.send({message: "Logged out"})
+		req.session.destroy();
+    res.redirect('/');
 	} catch(error) {
-		res.status(500).send({error: error.message})
+		res.redirect('/', {error: error.message})
 	}
 })
 
@@ -56,13 +78,13 @@ router.post('/users/resetPassword', async(req, res) => {
 		const user = await User.findOne({email: req.body.email})
 
 		if (!user) {
-			res.status(404).send({error: 'No user found with this email'})
+			res.render('forgotPassword', {error: 'No user found with this email'})
 		}
 		const token = await user.generateResetPasswordToken()
 		sendResetPasswordToken(user.email, user.name, token)
-		res.send({message: "Reset Password token email", token})
+		res.render('login', {message: "Reset Password token emailed to " + user.email})
 	} catch(error) {
-		res.status(400).send({error: error.message})
+		res.render('forgotPassword', {error: error.message})
 	}
 })
 
@@ -71,7 +93,11 @@ router.post('/users/updatePassword', async(req, res) => {
 		const user = await User.findOne({email: req.body.email})
 
 		if (!user) {
-			res.status(404).send({error: 'No user found with this email'})
+			throw new Error('No user found with this email')
+		}
+
+		if(req.body.password !== req.body.passwordConfirmation){
+			throw new Error("Passwords do not match")
 		}
 
 		const decoded = jwt.verify(req.body.token, process.env.JWT_SECRET)
@@ -87,9 +113,9 @@ router.post('/users/updatePassword', async(req, res) => {
 		user.password = req.body.password
 		user.resetPasswordToken = ''
 		await user.save()
-		res.send(user)
+		res.render('login', {message: "Password updated successfully"})
 	} catch(error) {
-		res.status(400).send({error: error.message})
+		res.render('updatePassword', {error: error.message})
 	}
 })
 
