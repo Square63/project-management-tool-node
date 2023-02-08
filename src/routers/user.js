@@ -23,8 +23,7 @@ router.post('/users', async(req, res) => {
 		}
 
 		await user.save()
-		const token = await user.generateAuthToken()
-		res.render('index', { message: "Registered Successfully"})
+		res.render('login', { message: "Registered Successfully"})
 	} catch(error) {
 		res.render('signup', {error: error.message})
 	}

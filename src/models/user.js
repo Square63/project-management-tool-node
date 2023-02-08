@@ -3,6 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Task = require('./task.js')
+const Project = require('./project.js')
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -44,7 +45,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['project-manager', 'developer', 'sqa']
-  }
+  },
+  projects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project"
+    }
+  ]
 }, {
   timestamps: true
 }
@@ -95,6 +102,8 @@ userSchema.methods.toJSON = function() {
   const user = this
   const userObject = user.toObject()
   delete userObject.tokens
+  delete userObject.tasks
+  delete userObject.projects
   delete userObject.password
   delete userObject.resetPasswordToken
 

@@ -9,13 +9,11 @@
   </head>
 
   <body>
-    {{>header}}
-    <form method="post" action="/users/logout">
-      <input type="submit" value="LogOut">
-    </form>
-
-    <p>Welcome to the Tool</p>
-
+    <div>
+      <h2>Welcome to PM Tool</h2>
+       <a href="/projects">Projects</a>
+      {{>logout}}
+    </div>
 
   </body>
 </html>

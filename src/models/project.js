@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const User = require('./user.js')
 
 const projectSchema = new mongoose.Schema({
   name: {
@@ -11,11 +12,17 @@ const projectSchema = new mongoose.Schema({
     trim: true
   },
   startDate: {
-    type: Date 
+    type: Date
   },
   endDate: {
     type: Date
-  }
+  },
+  users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ]
 })
 
 projectSchema.virtual('tasks', {
