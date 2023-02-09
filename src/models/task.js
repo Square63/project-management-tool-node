@@ -28,9 +28,9 @@ const taskSchema = new mongoose.Schema({
   dueDate: {
     type: Date,
   },
-  attachments: {
+  attachments: [{
     type: Buffer
-  }
+  }]
 }, {
   timestamps: true
 })

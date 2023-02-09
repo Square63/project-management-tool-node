@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>
+      PM Tool
+    </title>
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+
+  <body>
+    {{>header}}
+    <div>
+      <div>
+        <h4>{{task.name}}</h4>
+        <p><strong>Description: </strong>{{task.description}}</p>
+        <p><strong>Due Date: </strong>{{task.dueDate}}</p>
+        <p><strong>Status: </strong>{{task.status}}</p>
+        <p><strong>Assignee: </strong>{{task.assignee}}</p>
+        <p><strong>Attachments: </strong>{{task.attachments}}</p>
+      </div>
+
+    </div>
+    <br>
+  </body>
+</html>

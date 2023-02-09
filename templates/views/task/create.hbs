@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      PM Tool
+    </title>
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+
+  <body>
+    <form action="/tasks" method="post">
+      {{>header}}
+      <h2>Create new Task</h2>
+      <input type="hidden" name="project" id="project" value={{project._id}} >
+      <div class="input-field">
+        <input type="text" name="name" id="name" placeholder="Enter Name">
+      </div>
+      <div class="input-field">
+        <textarea type="textarea" name="description" id="description" placeholder="Enter description"></textarea>
+      </div>
+      <div class="input-field">
+        <label>Due Date:</label>
+        <br>
+        <input type="date" name="dueDate" id="dueDate" placeholder="Enter Due Date">
+      </div>
+
+      <input type="submit" value="Create">
+
+    </form>
+  </body>
+</html>

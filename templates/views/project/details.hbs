@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html>
   <head>
     <title>
@@ -18,9 +16,26 @@
         <p><strong>End Date: </strong>{{project.endDate}}</p>
       </div>
       <div>
-        <tr>
-          <td><a href="/projects/new">Create Project</a></td>
-        </tr>
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Assignee</th>
+            <th>Status</th>
+            <th>Due Date</th>
+          </thead>
+          <tbody>
+            {{#each tasks}}
+              <tr>
+                  <td>{{name }}</td>
+                  <td>{{assignee}}</td>
+                  <td>{{status}}</td>
+                  <td>{{dueDate}}</td>
+                  <td><a href='/tasks/{{_id}}'>See Details</a></td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <a href='/projects/{{project._id}}/tasks/new'>Add Task</a>
       </div>
     </div>
     <br>
