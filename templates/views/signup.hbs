@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <form action="/users" method="post">
+    <form action="{{process.env.HOST}}/users" method="post">
       {{>header}}
       <h2>Signup</h2>
       <div class="input-field">
@@ -31,9 +31,9 @@
       <input type="submit" value="Signup">
 
       <br>
-      <a href="/users/login">Log in</a>
+      <a href="{{process.env.HOST}}/users/login">Log in</a>
       <br>
-      <a href="/users/forgotPassword">Forgot Password</a>
+      <a href="{{process.env.HOST}}/users/forgotPassword">Forgot Password</a>
     </form>
   </body>
 </html>

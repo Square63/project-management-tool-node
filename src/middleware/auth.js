@@ -6,14 +6,14 @@ const auth = async (req, res, next) => {
   try {
     const token = req.session.token
     if(!token){
-      res.redirect('/users/login')
+      res.redirect(`${process.env.HOST}/users/login`)
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     const user = await User.findOne({_id: decoded._id, 'tokens.token': token});
     const projects = await Project.find({users: user._id})
 
     if (!user) {
-      res.redirect('/users/login')
+      res.redirect(`${process.env.HOST}/users/login`)
     }
 
     req.user = user;

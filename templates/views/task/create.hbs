@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <form action="/tasks" method="post">
+    <form action="{{process.env.HOST}}/projects/{{project._id}}/tasks" method="post">
       {{>header}}
       <h2>Create new Task</h2>
       <input type="hidden" name="project" id="project" value={{project._id}} >

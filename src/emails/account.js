@@ -4,7 +4,7 @@ const sendGridApiKey = process.env.SENDGRID_API_KEY
 sgEmail.setApiKey(sendGridApiKey)
 
 const sendResetPasswordToken = (email, name, token) => {
-  const url = `${process.env.HOST}:${process.env.PORT}/users/updatePassword?email=${email}&token=${token}`
+  const url = `${process.env.HOST}/users/updatePassword?email=${email}&token=${token}`
   try {
     sgEmail.send({
       to: email,

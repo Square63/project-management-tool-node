@@ -15,9 +15,30 @@
         <h4>{{task.name}}</h4>
         <p><strong>Description: </strong>{{task.description}}</p>
         <p><strong>Due Date: </strong>{{task.dueDate}}</p>
-        <p><strong>Status: </strong>{{task.status}}</p>
-        <p><strong>Assignee: </strong>{{task.assignee}}</p>
+        <strong>Status: </strong>
+        <select class="input-field" id="status" selected={{task.status}} default={{task.status}} value={{task.status}}>
+          <option value="to-do">To do</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+        <br>
+        <strong>Assignee: </strong>
+        <select class="input-field" id="assignee" name="assignee">
+          {{#if task.assignee}}
+            <option value={{task.assignee._id}}>{{task.assignee.name}} selected</option>
+          {{/if}}
+          <option value="">Select Assignee</option>
+          {{#each users}}
+            <option value={{_id}}>{{name}}</option>
+          {{/each}}
+        </select>
         <p><strong>Attachments: </strong>{{task.attachments}}</p>
+        <form action="{{process.env.HOST}}/projects/{{project._id}}/tasks/{{task._id}}/attachments" method="post">
+          <div class="input-field">
+            <input type="file" multiple="true" name="attachments" id="name" placeholder="Enter Name">
+            <input type="submit" value="upload">
+          </div>
+        </form>
       </div>
 
     </div>

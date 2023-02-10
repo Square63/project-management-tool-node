@@ -28,13 +28,13 @@
                     <td>{{name }}</td>
                     <td>{{startDate}}</td>
                     <td>{{endDate}}</td>
-                    <td><a href='projects/{{_id}}'>See Details</a></td>
+                    <td><a href='{{process.env.HOST}}/projects/{{_id}}'>See Details</a></td>
                 </tr>
             {{/each}}
           </tbody>
         </table>
         <br>
-        <a href="/projects/new">Create Project</a>
+        <a href="{{process.env.HOST}}/projects/new">Create Project</a>
 
       </div>
     </div>

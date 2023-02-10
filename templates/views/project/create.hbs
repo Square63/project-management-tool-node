@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <form action="/projects" method="post">
+    <form action="{{process.env.HOST}}/projects" method="post">
       {{>header}}
       <h2>Create new Project</h2>
       <div class="input-field">

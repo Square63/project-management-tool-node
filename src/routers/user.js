@@ -50,7 +50,7 @@ router.post('/users/login', async(req, res) => {
 		const user = await User.findByCredentials(req.body.email, req.body.password)
 		const token = await user.generateAuthToken()
 		req.session.token = token
-		res.redirect('/')
+		res.redirect(process.env.HOST)
 	} catch(error) {
 		res.render('login', {error: error.message})
 	}
@@ -66,9 +66,9 @@ router.post('/users/logout', auth, async(req, res) => {
 		await user.save()
 
 		req.session.destroy();
-    res.redirect('/');
+    res.redirect(process.env.HOST);
 	} catch(error) {
-		res.redirect('/', {error: error.message})
+		res.redirect(process.env.HOST, {error: error.message})
 	}
 })
 
@@ -77,7 +77,7 @@ router.post('/users/resetPassword', async(req, res) => {
 		const user = await User.findOne({email: req.body.email})
 
 		if (!user) {
-			res.render('forgotPassword', {error: 'No user found with this email'})
+			throw new Error('No user found with this email')
 		}
 		const token = await user.generateResetPasswordToken()
 		sendResetPasswordToken(user.email, user.name, token)
@@ -114,7 +114,7 @@ router.post('/users/updatePassword', async(req, res) => {
 		await user.save()
 		res.render('login', {message: "Password updated successfully"})
 	} catch(error) {
-		res.render('updatePassword', {error: error.message})
+		res.render('updatePassword', {error: error.message, email: req.body.email, token: req.body.token})
 	}
 })
 
