@@ -51,7 +51,43 @@ router.post('/projects/:project_id/tasks/:id/attachments', [auth, authorizeProje
     await task.save()
     res.render("task/details", {task, project: req.project})
   } catch (error) {
-		res.render("task/create", {error: error.message, project: req.project})
+		res.render("project/details", {error: error.message, project: req.project})
+  }
+})
+
+router.patch('/projects/:project_id/tasks/:id/status', [auth, authorizeProject], async(req, res) => {
+  try {
+    const task = await Task.findOne({project: req.params.project_id, _id: req.params.id})
+    if(!task){
+      throw new Error('Task not found')
+    }
+    task.status = req.query.status
+    await task.save()
+    res.send({message: 'status updated'})
+  } catch (error) {
+		res.status(400).send({error: error.message})
+  }
+})
+
+router.patch('/projects/:project_id/tasks/:id/assignee', [auth, authorizeProject], async(req, res) => {
+  try {
+    const task = await Task.findOne({project: req.params.project_id, _id: req.params.id})
+    if(!task){
+      throw new Error('Task not found')
+    }
+    if(req.query.assignee){
+      const assignee = req.project.users.find((user) => user.toString() === req.query.assignee)
+      if(!assignee){
+        throw new Error("Couldn't assign to this user")
+      }
+      task.assignee = assignee
+    } else {
+      task.assignee = undefined
+    }
+    await task.save()
+    res.send({message: 'Assignee updated'})
+  } catch (error) {
+		res.status(400).send({error: error.message})
   }
 })
 

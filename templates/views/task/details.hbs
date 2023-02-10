@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html>
   <head>
     <title>
@@ -12,20 +10,23 @@
     {{>header}}
     <div>
       <div>
+        <input type="hidden" id="taskId" value={{task._id}}/>
+        <input type="hidden" id="projectId" value={{task.project}}/>
         <h4>{{task.name}}</h4>
         <p><strong>Description: </strong>{{task.description}}</p>
         <p><strong>Due Date: </strong>{{task.dueDate}}</p>
         <strong>Status: </strong>
-        <select class="input-field" id="status" selected={{task.status}} default={{task.status}} value={{task.status}}>
+        <select class="input-field" id="statusSelect">
+          <option value={{task.status.value}} selected>{{task.status}}</option>
           <option value="to-do">To do</option>
           <option value="in-progress">In Progress</option>
           <option value="completed">Completed</option>
         </select>
         <br>
         <strong>Assignee: </strong>
-        <select class="input-field" id="assignee" name="assignee">
+        <select class="input-field" id="assigneeSelect" name="assigneeSelect">
           {{#if task.assignee}}
-            <option value={{task.assignee._id}}>{{task.assignee.name}} selected</option>
+            <option value={{task.assignee._id}} selected>{{task.assignee.name}}</option>
           {{/if}}
           <option value="">Select Assignee</option>
           {{#each users}}
@@ -43,5 +44,6 @@
 
     </div>
     <br>
+      <script src='/js/app.js'></script>
   </body>
 </html>
