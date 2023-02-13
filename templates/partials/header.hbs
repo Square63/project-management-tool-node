@@ -1,4 +1,9 @@
-<div>
-  <p class="error">{{error}}</p>
-  <p class="message">{{message}}</p>
-</div>
+{{#if message}}
+  <div class="alert alert-success" role="alert">
+    {{message}}
+  </div>
+{{else if error}}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+{{/if}}

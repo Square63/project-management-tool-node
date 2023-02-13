@@ -4,10 +4,11 @@
     <title>
       PM Tool
     </title>
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
   </head>
 
   <body>
+    {{>navbar}}
     <form action="{{process.env.HOST}}/projects" method="post">
       {{>header}}
       <h2>Create new Project</h2>

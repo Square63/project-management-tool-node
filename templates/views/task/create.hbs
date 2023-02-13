@@ -4,12 +4,12 @@
     <title>
       PM Tool
     </title>
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
   </head>
 
   <body>
+    {{>navbar}}
     <form action="{{process.env.HOST}}/projects/{{project._id}}/tasks" method="post">
-      {{>header}}
       <h2>Create new Task</h2>
       <input type="hidden" name="project" id="project" value={{project._id}} >
       <div class="input-field">
