@@ -21,8 +21,15 @@ router.get('/projects/:id', auth, async(req, res) => {
     if(!project) {
 			throw new Error('Project not found')
     }
-		const tasks = await Task.find({project})
-    res.render("project/details", {project, tasks})
+		const tasks = await Task
+			.find({project})
+			.populate({
+      	path: 'assignee'
+    	})
+		const todo = tasks.filter((task) => task.status === 'to-do');
+		const inprogress = tasks.filter((task) => task.status === 'in-progress');
+		const completed = tasks.filter((task) => task.status === 'completed');
+    res.render("project/details", {project, todo, inprogress, completed})
   } catch (error) {
 		res.render("project/list", {error: error.message, projects: req.projects})
   }

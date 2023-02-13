@@ -11,9 +11,37 @@
   <body>
     <div>
       <h2>Welcome to PM Tool</h2>
+      <p><strong>Name: </strong>{{user.name}}</p>
+      <p><strong>Email: </strong>{{user.email}}</p>
+
        <a href="{{process.env.HOST}}/projects">Projects</a>
       {{>logout}}
+
+      <div>
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Assignee</th>
+            <th>Status</th>
+            <th>Project</th>
+            <th>Due Date</th>
+          </thead>
+          <tbody>
+            {{#each tasks}}
+              <tr>
+                  <td>{{name }}</td>
+                  <td>{{assignee.name}}</td>
+                  <td>{{status}}</td>
+                  <td>{{project.name}}</td>
+                  <td>{{dueDate}}</td>
+                  <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
 
+    
   </body>
 </html>

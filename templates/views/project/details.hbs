@@ -15,28 +15,84 @@
         <p><strong>Start Date: </strong>{{project.startDate}}</p>
         <p><strong>End Date: </strong>{{project.endDate}}</p>
       </div>
-      <div>
-        <table>
-          <thead>
-            <th>Name</th>
-            <th>Assignee</th>
-            <th>Status</th>
-            <th>Due Date</th>
-          </thead>
-          <tbody>
-            {{#each tasks}}
-              <tr>
-                  <td>{{name }}</td>
-                  <td>{{assignee}}</td>
-                  <td>{{status}}</td>
-                  <td>{{dueDate}}</td>
-                  <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
+      <table>
+        <thead>
+          <th>To Do</th>
+          <th>In Progress</th>
+          <th>Completed</th>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <table>
+                <thead>
+                  <th>Name</th>
+                  <th>Assignee</th>
+                  <th>Status</th>
+                  <th>Due Date</th>
+                </thead>
+                <tbody>
+                  {{#each todo}}
+                    <tr>
+                        <td>{{name }}</td>
+                        <td>{{assignee.name}}</td>
+                        <td>{{status}}</td>
+                        <td>{{dueDate}}</td>
+                        <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </td>
+
+            <td>
+              <table>
+                <thead>
+                  <th>Name</th>
+                  <th>Assignee</th>
+                  <th>Status</th>
+                  <th>Due Date</th>
+                </thead>
+                <tbody>
+                  {{#each inprogress}}
+                    <tr>
+                        <td>{{name }}</td>
+                        <td>{{assignee.name}}</td>
+                        <td>{{status}}</td>
+                        <td>{{dueDate}}</td>
+                        <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </td>
+
+            <td>
+              <table>
+                <thead>
+                  <th>Name</th>
+                  <th>Assignee</th>
+                  <th>Status</th>
+                  <th>Due Date</th>
+                </thead>
+                <tbody>
+                  {{#each completed}}
+                    <tr>
+                        <td>{{name }}</td>
+                        <td>{{assignee.name}}</td>
+                        <td>{{status}}</td>
+                        <td>{{dueDate}}</td>
+                        <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
         <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/new'>Add Task</a>
-      </div>
+      </table>
     </div>
     <br>
   </body>
