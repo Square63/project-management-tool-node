@@ -49,7 +49,7 @@ router.post('/projects/:project_id/tasks/:id/attachments', [auth, authorizeProje
     }
     task.attachments = task.attachments.concat(req.body.attachments)
     await task.save()
-    res.render("task/details", {task, project: req.project})
+    res.redirect(`${process.env.HOST}/projects/${task.project}/tasks/${task._id}`)
   } catch (error) {
 		res.render("project/details", {error: error.message, project: req.project})
   }

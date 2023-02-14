@@ -5,47 +5,49 @@
     <title>
       PM Tool
     </title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
   </head>
 
-  <body>
-    {{>navbar}}
-    <div class="d-flex p-2">
-      <div class="card border-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header">User Info</div>
-        <div class="card-body text-dark">
-          <h6 class="card-title"><strong>Name: </strong>{{user.name}}</h5>
-          <p class="card-text"><strong>Email: </strong>{{user.email}}</p>
-          <span class="badge text-bg-light text-capitalize">{{user.role}}</span>
+  <body style="background-color: #aacae5;">
+    <section>
+      {{>navbar}}
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center">
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+              <div class="card-header">User Info</div>
+              <div class="card-body text-dark">
+                <h6 class="card-title"><strong>Name: </strong>{{user.name}}</h5>
+                <p class="card-text"><strong>Email: </strong>{{user.email}}</p>
+                <span class="badge text-bg-light text-capitalize">{{user.role}}</span>
+              </div>
+          </div>
+          
+          <div class="m-3">
+            <h4>Your Tasks</h4>
+            <table class="table table-striped bg-light">
+              <thead>
+                <th>Name</th>
+                <th>Assignee</th>
+                <th>Status</th>
+                <th>Project</th>
+                <th>Due Date</th>
+              </thead>
+              <tbody>
+                {{#each tasks}}
+                  <tr>
+                      <td>{{name }}</td>
+                      <td>{{assignee.name}}</td>
+                      <td class="text-capitalize">{{status}}</td>
+                      <td>{{project.name}}</td>
+                      <td>{{dueDate}}</td>
+                      <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-   
-
-    <div class="m-3">
-      <h4>Your Tasks</h4>
-      <table class="table table-striped">
-        <thead>
-          <th>Name</th>
-          <th>Assignee</th>
-          <th>Status</th>
-          <th>Project</th>
-          <th>Due Date</th>
-        </thead>
-        <tbody>
-          {{#each tasks}}
-            <tr>
-                <td>{{name }}</td>
-                <td>{{assignee.name}}</td>
-                <td class="text-capitalize">{{status}}</td>
-                <td>{{project.name}}</td>
-                <td>{{dueDate}}</td>
-                <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-
+    </section>
   </body>
 </html>

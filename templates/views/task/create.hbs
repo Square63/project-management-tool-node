@@ -4,28 +4,54 @@
     <title>
       PM Tool
     </title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css" />
   </head>
 
-  <body>
-    {{>navbar}}
-    <form action="{{process.env.HOST}}/projects/{{project._id}}/tasks" method="post">
-      <h2>Create new Task</h2>
-      <input type="hidden" name="project" id="project" value={{project._id}} >
-      <div class="input-field">
-        <input type="text" name="name" id="name" placeholder="Enter Name">
-      </div>
-      <div class="input-field">
-        <textarea type="textarea" name="description" id="description" placeholder="Enter description"></textarea>
-      </div>
-      <div class="input-field">
-        <label>Due Date:</label>
-        <br>
-        <input type="date" name="dueDate" id="dueDate" placeholder="Enter Due Date">
-      </div>
+  <body style="background-color: #aacae5;">
+    <section>
+      {{>navbar}}
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center h-100">
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem;">
+              <div class="row g-0">
+                <div class="col-3 d-none d-md-block"></div>
+                <div class="col-6 d-flex align-items-center">
+                  <div class="card-body p-4 p-lg-5 text-black">
+                    <form action="{{process.env.HOST}}/projects/{{project._id}}/tasks" method="post">
+                      <div class="d-flex align-items-center mb-3 pb-1">
+                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                        <span class="h3 fw-bold mb-0" style="color: #1b4bc5;">Create Task</span>
+                      </div>
+                      <input type="hidden" name="project" id="project" value={{project._id}} >
 
-      <input type="submit" value="Create">
+                      <div class="form-outline mb-4">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control form-control-lg" required/>
+                      </div>
 
-    </form>
+                      <div class="form-outline mb-4">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control form-control-lg"></textarea>
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <label class="form-label" >Due Date</label>
+                        <input  type="date" name="dueDate" class="form-control form-control-lg" placeholder="Enter Due Date"/>
+                      </div>
+
+                      <div class="pt-1 mb-4">
+                        <input class="btn btn-dark btn-lg btn-block" type="submit" value="Create">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-3 d-none d-md-block"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>

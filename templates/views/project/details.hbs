@@ -3,97 +3,95 @@
     <title>
       PM Tool
     </title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
   </head>
 
-  <body>
-    {{>navbar}}
-    <div>
-      <div>
-        <h2>{{project.name}}</h2>
-        <p><strong>Description: </strong>{{project.description}}</p>
-        <p><strong>Start Date: </strong>{{project.startDate}}</p>
-        <p><strong>End Date: </strong>{{project.endDate}}</p>
+  <body style="background-color: #aacae5;">
+    <section>
+      {{>navbar}}
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center">
+          <div class="card border-dark mb-3">
+            <div class="card-body text-dark">
+              <h2 class="class-title">{{project.name}}</h2>
+              <p class="card-text"><strong>Description: </strong>{{project.description}}</p>
+              <p class="card-text"><strong>Start Date: </strong>{{project.startDate}}</p>
+              <p class="card-text"><strong>End Date: </strong>{{project.endDate}}</p>
+              <a class="btn btn-primary" href='{{process.env.HOST}}/projects/{{project._id}}/tasks/new'>Add Task</a>
+            </div>
+          </div>
+
+          <div class="m-3">
+            <h4>Tasks</h4>
+            <table class="table table-striped bg-light">
+              <thead>
+                <th>To Do</th>
+                <th>In Progress</th>
+                <th>Completed</th>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <table>
+                      <tbody>
+                        {{#each todo}}
+                          <tr>
+                              <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
+                                <div class="card-body text-dark">
+                                  <p><strong>{{name }}</strong></p>
+                                  <p class="st-italic">{{assignee.name}}</p>
+                                  <p class="text-muted">{{dueDate}}</p>
+                                </div>
+                              </a>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </td>
+
+                  <td>
+                    <table>
+                      <tbody>
+                        {{#each inprogress}}
+                          <tr>
+                              <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
+                                <div class="card-body text-dark">
+                                  <p><strong>{{name }}</strong></p>
+                                  <p class="st-italic">{{assignee.name}}</p>
+                                  <p class="text-muted">{{dueDate}}</p>
+                                </div>
+                              </a>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </td>
+
+                  <td>
+                    <table>
+                      <tbody>
+                        {{#each completed}}
+                          <tr>
+                              <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
+                                <div class="card-body text-dark">
+                                  <p><strong>{{name }}</strong></p>
+                                  <p class="st-italic">{{assignee.name}}</p>
+                                  <p class="text-muted">{{dueDate}}</p>
+                                </div>
+                              </a>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <table>
-        <thead>
-          <th>To Do</th>
-          <th>In Progress</th>
-          <th>Completed</th>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>
-              <table>
-                <thead>
-                  <th>Name</th>
-                  <th>Assignee</th>
-                  <th>Status</th>
-                  <th>Due Date</th>
-                </thead>
-                <tbody>
-                  {{#each todo}}
-                    <tr>
-                        <td>{{name }}</td>
-                        <td>{{assignee.name}}</td>
-                        <td>{{status}}</td>
-                        <td>{{dueDate}}</td>
-                        <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </td>
-
-            <td>
-              <table>
-                <thead>
-                  <th>Name</th>
-                  <th>Assignee</th>
-                  <th>Status</th>
-                  <th>Due Date</th>
-                </thead>
-                <tbody>
-                  {{#each inprogress}}
-                    <tr>
-                        <td>{{name }}</td>
-                        <td>{{assignee.name}}</td>
-                        <td>{{status}}</td>
-                        <td>{{dueDate}}</td>
-                        <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </td>
-
-            <td>
-              <table>
-                <thead>
-                  <th>Name</th>
-                  <th>Assignee</th>
-                  <th>Status</th>
-                  <th>Due Date</th>
-                </thead>
-                <tbody>
-                  {{#each completed}}
-                    <tr>
-                        <td>{{name }}</td>
-                        <td>{{assignee.name}}</td>
-                        <td>{{status}}</td>
-                        <td>{{dueDate}}</td>
-                        <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-        <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/new'>Add Task</a>
-      </table>
-    </div>
+    </section>
     <br>
   </body>
 </html>
