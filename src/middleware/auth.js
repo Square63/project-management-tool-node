@@ -20,7 +20,7 @@ const auth = async (req, res, next) => {
     req.projects = projects;
     next()
   } catch (error) {
-    res.render('login', { error: error.message })
+    res.render('user/login', { error: error.message })
   }
 
 }

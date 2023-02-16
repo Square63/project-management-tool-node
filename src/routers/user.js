@@ -23,26 +23,26 @@ router.post('/users', async(req, res) => {
 		}
 
 		await user.save()
-		res.render('login', { message: "Registered Successfully"})
+		res.render('user/login', { message: "Registered Successfully"})
 	} catch(error) {
-		res.render('signup', {error: error.message})
+		res.render('user/signup', {error: error.message})
 	}
 })
 
 router.get('/users/login', (req, res) => {
-  res.render('login')
+  res.render('user/login')
 })
 
 router.get('/users/updatePassword', (req, res) => {
-  res.render('updatePassword', {email: req.query.email, token: req.query.token})
+  res.render('user/updatePassword', {email: req.query.email, token: req.query.token})
 })
 
 router.get('/users/signup', (req, res) => {
-  res.render('signup')
+  res.render('user/signup')
 })
 
 router.get('/users/forgotPassword', (req, res) => {
-  res.render('forgotPassword')
+  res.render('user/forgotPassword')
 })
 
 router.post('/users/login', async(req, res) => {
@@ -52,7 +52,7 @@ router.post('/users/login', async(req, res) => {
 		req.session.token = token
 		res.redirect(process.env.HOST)
 	} catch(error) {
-		res.render('login', {error: error.message})
+		res.render('user/login', {error: error.message})
 	}
 })
 
@@ -81,9 +81,9 @@ router.post('/users/resetPassword', async(req, res) => {
 		}
 		const token = await user.generateResetPasswordToken()
 		sendResetPasswordToken(user.email, user.name, token)
-		res.render('login', {message: "Reset Password token emailed to " + user.email})
+		res.render('user/login', {message: "Reset Password token emailed to " + user.email})
 	} catch(error) {
-		res.render('forgotPassword', {error: error.message})
+		res.render('user/forgotPassword', {error: error.message})
 	}
 })
 
@@ -112,9 +112,9 @@ router.post('/users/updatePassword', async(req, res) => {
 		user.password = req.body.password
 		user.resetPasswordToken = ''
 		await user.save()
-		res.render('login', {message: "Password updated successfully"})
+		res.render('user/login', {message: "Password updated successfully"})
 	} catch(error) {
-		res.render('updatePassword', {error: error.message, email: req.body.email, token: req.body.token})
+		res.render('user/updatePassword', {error: error.message, email: req.body.email, token: req.body.token})
 	}
 })
 
