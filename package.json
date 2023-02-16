@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "env-cmd --file ./config/live.env node src/index.js",
     "dev": "env-cmd --file ./config/dev.env nodemon src/index.js -e js,hbs"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "env-cmd": "^10.1.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
@@ -18,6 +17,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.3",
     "cookie-parser": "^1.4.6",
+    "env-cmd": "^10.1.0",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
