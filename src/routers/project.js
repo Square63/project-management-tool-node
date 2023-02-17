@@ -1,6 +1,7 @@
 const express = require('express');
 const Project = require('../models/project');
 const Task = require('../models/task');
+const User = require('../models/user');
 const auth = require('../middleware/auth');
 
 const router = new express.Router();
@@ -11,7 +12,8 @@ router.get('/projects', auth, async(req, res) => {
 })
 
 router.get('/projects/new', auth, async(req, res) => {
-	res.render("project/create")
+	const managers = await User.find({role: 'project-manager'})
+	res.render("project/create", {managers})
 })
 
 router.get('/projects/:id', auth, async(req, res) => {
@@ -36,12 +38,16 @@ router.get('/projects/:id', auth, async(req, res) => {
 })
 
 router.post('/projects', auth, async(req, res) => {
-    const project = new Project(req.body)
+  const project = new Project(req.body)
 
 	try {
 		project.users = project.users.concat(req.user._id)
 
 		await project.save()
+
+		req.user.projects = req.user.projects.concat(project._id)
+		await req.user.save()
+
 		res.render("project/details", {project, message: "Project Created Successfully"})
 	} catch(error) {
 		res.render('project/create', {error: error.message})

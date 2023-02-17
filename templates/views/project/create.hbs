@@ -44,6 +44,16 @@
                         <input type="date" name="endDate" id="endDate" class="form-control form-control-lg" placeholder="Select end date"/>
                       </div>
 
+                      <div class="form-outline mb-4">
+                        <label class="form-label">Project Manager</label>
+                        <select class="form-control" name="manager">
+                          <option value="">Select Manager</option>
+                          {{#each managers}}
+                            <option value={{_id}}>{{name}}</option>
+                          {{/each}}
+                        </select>
+                      </div>
+
                       <div class="pt-1 mb-4">
                         <input class="btn btn-dark btn-lg btn-block" type="submit" value="Create">
                       </div>

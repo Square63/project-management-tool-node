@@ -17,6 +17,16 @@ const projectSchema = new mongoose.Schema({
   endDate: {
     type: Date
   },
+  status: {
+    type: String,
+    default: 'pending',
+    enum: ['pending', 'ongoing', 'completed']
+  },
+  manager: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   users: [
     {
       type: mongoose.Schema.Types.ObjectId,

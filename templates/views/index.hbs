@@ -8,43 +8,68 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
   </head>
 
-  <body style="background-color: #aacae5;">
+  <body>
     <section>
       {{>navbar}}
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-              <div class="card-header">User Info</div>
-              <div class="card-body text-dark">
-                <h6 class="card-title"><strong>Name: </strong>{{user.name}}</h5>
-                <p class="card-text"><strong>Email: </strong>{{user.email}}</p>
-                <span class="badge text-bg-light text-capitalize">{{user.role}}</span>
-              </div>
+      <div class="py-5 h-100">
+        <div class="justify-content-center">
+          <div class="row text-center">
+            <div class="col-2"></div>
+            <div class="card text-bg-light border-0 col-lg-2 mx-2">
+              <h5 class="py-2">Ongoing Projects</h5>
+              <h1>{{metadata.ongoingProjects}}</h1>
+            </div>
+
+            <div class="card text-bg-light border-0 col-lg-2 mx-2">
+              <h5 class="py-2">Completed Projects</h5>
+              <h1>{{metadata.completedProjects}}</h1>
+            </div>
+
+            <div class="card text-bg-light border-0 col-lg-2 mx-2">
+              <h5 class="py-2">Due Projects</h5>
+              <h1>{{metadata.dueProjects}}</h1>
+            </div>
+
+            <div class="card text-bg-light border-0 col-lg-2 mx-2">
+              <h5 class="py-2">Total Members</h5>
+              <h1>{{members.length}}</h1>
+            </div>
+            <div class="col-2"></div>
           </div>
           
-          <div class="m-3">
-            <h4>Your Tasks</h4>
-            <table class="table table-striped bg-light">
-              <thead>
-                <th>Name</th>
-                <th>Assignee</th>
-                <th>Status</th>
-                <th>Project</th>
-                <th>Due Date</th>
-              </thead>
-              <tbody>
-                {{#each tasks}}
-                  <tr>
+          <div class="mx-5 mt-5 row">
+            <div class="col-6">
+              <h4>Projects</h4>
+              <table class="table table-borderless rounded-4 bg-light">
+                <tbody>
+                  {{#if projects}}
+                  {{else}}
+                    <tr>No Projects Found</tr>
+                  {{/if}}
+                  {{#each projects}}
+                    <tr>
                       <td>{{name }}</td>
-                      <td>{{assignee.name}}</td>
-                      <td class="text-capitalize">{{status}}</td>
-                      <td>{{project.name}}</td>
-                      <td>{{dueDate}}</td>
-                      <td><a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}'>See Details</a></td>
-                  </tr>
-                {{/each}}
-              </tbody>
-            </table>
+                      <td>{{manager.name}}</td>
+                      <td><a href='{{process.env.HOST}}/projects/{{_id}}'>See Details</a></td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+            <div class="col-6">
+              <h4>Members</h4>
+              <table class="table table-borderless rounded-4 bg-light">
+                <tbody>
+                  {{#each members}}
+                    <tr>
+                        <td>{{name }}</td>
+                        <td>{{this.projects.length}} Ongoing Projects</td>
+                        <td><a href='{{process.env.HOST}}/users/{{_id}}'>See Profile</a></td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
