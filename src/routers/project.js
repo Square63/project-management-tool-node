@@ -18,7 +18,7 @@ router.get('/projects/new', auth, async(req, res) => {
 
 router.get('/projects/:id', auth, async(req, res) => {
 	try {
-		const project = await Project.findOne({users: req.user._id, _id: req.params.id})
+		const project = await Project.findOne({users: req.user._id, _id: req.params.id}).populate('manager')
 
     if(!project) {
 			throw new Error('Project not found')
@@ -31,7 +31,8 @@ router.get('/projects/:id', auth, async(req, res) => {
 		const todo = tasks.filter((task) => task.status === 'to-do');
 		const inprogress = tasks.filter((task) => task.status === 'in-progress');
 		const completed = tasks.filter((task) => task.status === 'completed');
-    res.render("project/details", {project, todo, inprogress, completed})
+		const managers = await User.find({role: 'project-manager'})
+    res.render("project/details", {project, todo, inprogress, completed, managers})
   } catch (error) {
 		res.render("project/list", {error: error.message, projects: req.projects})
   }
@@ -52,6 +53,45 @@ router.post('/projects', auth, async(req, res) => {
 	} catch(error) {
 		res.render('project/create', {error: error.message})
 	}
+})
+
+router.patch('/projects/:id/manager', [auth], async(req, res) => {
+  try {
+    const project = await Project.findOne({users: req.user._id, _id: req.params.id})
+
+    if(!project) {
+			throw new Error('Project not found')
+    }
+    if(req.query.manager){
+      const manager = await User.findById(req.query.manager)
+      if(!manager){
+        throw new Error("Manager not found")
+      }
+      project.manager = manager._id
+			res.send({message: 'Manager updated'})
+    } else {
+      project.manager = undefined
+    }
+    await project.save()
+  } catch (error) {
+		res.status(400).send({error: error.message})
+  }
+})
+
+router.patch('/projects/:id/status', [auth], async(req, res) => {
+  try {
+    const project = await Project.findOne({users: req.user._id, _id: req.params.id})
+
+    if(!project) {
+			throw new Error('Project not found')
+    }
+
+    project.status = req.query.status
+    await project.save()
+    res.send({message: 'Status updated'})
+  } catch (error) {
+		res.status(400).send({error: error.message})
+  }
 })
 
 module.exports = router

@@ -6,85 +6,89 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
   </head>
 
-  <body style="background-color: #aacae5;">
+  <body class="bg-black bg-opacity-25">
     <section>
       {{>navbar}}
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center">
-          <div class="card border-dark mb-3">
-            <div class="card-body text-dark">
-              <h2 class="class-title">{{project.name}}</h2>
-              <p class="card-text"><strong>Description: </strong>{{project.description}}</p>
-              <p class="card-text"><strong>Start Date: </strong>{{dateFormat project.startDate "DD/MM/YY"}}</p>
-              <p class="card-text"><strong>End Date: </strong>{{dateFormat project.endDate "DD/MM/YY"}}</p>
-              <a class="btn btn-primary" href='{{process.env.HOST}}/projects/{{project._id}}/tasks/new'>Add Task</a>
-            </div>
+      <input type="hidden" id="projectId" value={{project._id}}/>
+      <nav class="navbar navbar-expand-lg bg-white">
+        <div class="container-fluid">
+          <h2 class="mx-4">{{project.name}}</h2>
+
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item d-flex align-items-lg-baseline">
+                <h5 class="mx-2">Status: </h5>
+                <select class="form-control text-capitalize" id="projectStatus">
+                  <option value={{project.status}} selected>{{project.status}}</option>
+                  <option value="pending">Pending</option>
+                  <option value="ongoing">On Going</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </li>
+              <li class="nav-item d-flex align-items-lg-baseline mx-4">
+                <h5 class="mx-2">Manager: </h5>
+                <select class="form-control" id="projectManager" name="manager">
+                  {{#if project.manager}}
+                    <option value={{project.manager._id}} selected>{{project.manager.name}}</option>
+                  {{/if}}
+                  <option value="">Select Manager</option>
+                  {{#each managers}}
+                    <option value={{_id}}>{{name}}</option>
+                  {{/each}}
+                </select>
+              </li>
+            </ul>
           </div>
-
+        </div>
+      </nav>
+      <div class="h-100">
+        <div class="row">
           <div class="m-3">
-            <h4>Tasks</h4>
-            <table class="table table-striped bg-light">
-              <thead>
-                <th>To Do</th>
-                <th>In Progress</th>
-                <th>Completed</th>
-              </thead>
-
+            <table class="table" style="border-collapse: separate; border-spacing: 20px 0px">
               <tbody>
                 <tr>
-                  <td>
-                    <table>
-                      <tbody>
-                        {{#each todo}}
-                          <tr>
-                              <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
-                                <div class="card-body text-dark">
-                                  <p><strong>{{name }}</strong></p>
-                                  <p class="st-italic">{{assignee.name}}</p>
-                                  <p class="text-muted">{{dateFormat dueDate "DD/MM/YY"}}</p>
-                                </div>
-                              </a>
-                          </tr>
-                        {{/each}}
-                      </tbody>
-                    </table>
+                  <td class="bg-white rounded-5 p-3">
+                    <h3>To Do</h3>
+                    {{#each todo}}
+                      <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
+                        <div class="card-body text-dark">
+                          <p><strong>{{name }}</strong></p>
+                          <p class="text-muted small">{{dateFormat dueDate "DD/MM/YY"}}</p>
+                          <p class="st-italic float-end">{{assignee.name}}</p>
+                        </div>
+                      </a>
+                    {{/each}}
                   </td>
 
-                  <td>
-                    <table>
-                      <tbody>
-                        {{#each inprogress}}
-                          <tr>
-                              <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
-                                <div class="card-body text-dark">
-                                  <p><strong>{{name }}</strong></p>
-                                  <p class="st-italic">{{assignee.name}}</p>
-                                  <p class="text-muted">{{dateFormat dueDate "DD/MM/YY"}}</p>
-                                </div>
-                              </a>
-                          </tr>
-                        {{/each}}
-                      </tbody>
-                    </table>
+                  <td class="bg-white rounded-5 p-3">
+                    <h3>In Progress</h3>
+                    {{#each inprogress}}
+                      <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
+                        <div class="card-body text-dark">
+                          <p><strong>{{name }}</strong></p>
+                          <p class="text-muted small">{{dateFormat dueDate "DD/MM/YY"}}</p>
+                          <p class="st-italic float-end">{{assignee.name}}</p>
+                        </div>
+                      </a>
+                    {{/each}}
                   </td>
 
-                  <td>
-                    <table>
-                      <tbody>
-                        {{#each completed}}
-                          <tr>
-                              <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
-                                <div class="card-body text-dark">
-                                  <p><strong>{{name }}</strong></p>
-                                  <p class="st-italic">{{assignee.name}}</p>
-                                  <p class="text-muted">{{dateFormat dueDate "DD/MM/YY"}}</p>
-                                </div>
-                              </a>
-                          </tr>
-                        {{/each}}
-                      </tbody>
-                    </table>
+                  <td class="bg-white rounded-5 p-3">
+                    <h3>Completed</h3>
+                    {{#each completed}}
+                      <a href='{{process.env.HOST}}/projects/{{project._id}}/tasks/{{_id}}' class="card border-dark mb-3 text-decoration-none">
+                        <div class="card-body text-dark">
+                          <p><strong>{{name }}</strong></p>
+                          <p class="text-muted small">{{dateFormat dueDate "DD/MM/YY"}}</p>
+                          <p class="st-italic float-end">{{assignee.name}}</p>
+                        </div>
+                      </a>
+                    {{/each}}
                   </td>
+                  <td>
+                    <button class="btn btn-primary">Add Column</button>
+                  </td>
+                  <td/>
                 </tr>
               </tbody>
             </table>
@@ -92,6 +96,6 @@
         </div>
       </div>
     </section>
-    <br>
+    <script src='/js/projectDetails.js'></script>
   </body>
 </html>

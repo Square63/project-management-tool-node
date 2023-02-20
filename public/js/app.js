@@ -1,6 +1,8 @@
 console.log("its loaded successfully")
 
 const statusSelect = document.querySelector('#statusSelect')
+const projectStatus = document.querySelector('#projectStatus')
+const projectManager = document.querySelector('#projectManager')
 const projectId = document.querySelector('#projectId')
 const taskId = document.querySelector('#taskId')
 const assigneeSelect = document.querySelector('#assigneeSelect')
