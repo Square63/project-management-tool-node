@@ -16,6 +16,7 @@ app.set('views', path.join(__dirname, '../templates/views'))
 app.use(express.static(path.join(__dirname, '../node_modules/bootstrap/dist/')));
 app.use(express.static(path.join(__dirname, '../public')));
 hbs.registerPartials(path.join(__dirname, '../templates/partials'))
+hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
 app.use(sessions({
   secret: process.env.JWT_SECRET,
   saveUninitialized:true,

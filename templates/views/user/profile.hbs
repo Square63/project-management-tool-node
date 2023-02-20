@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>
+      PM Tool
+    </title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+  </head>
+
+  <body>
+    <section>
+      {{>navbar}}
+      <div class="py-5 h-100">
+        <div class="justify-content-center">
+          <div class="mx-5 row">
+            <div class="col-1"></div>
+            <div class="col-3">
+              <h3 class="mx-2">{{user.name}}</h3>
+            </div>
+            <div class="col-3">
+              <h5>Email: <a>{{user.email}}</a></h5>
+            </div>
+          </div>
+
+          <div class="mx-5 mt-5 row">
+            <div class="col-1"></div>
+            <div class="col-9 bg-light">
+              <table class="table table-borderless rounded-4" style="border-collapse: separate; border-spacing: 0 15px">
+                <h4>Tasks</h4>
+                <tbody class="bg-white">
+                  {{#if tasks}}
+                  {{else}}
+                    <tr>No Task Found</tr>
+                  {{/if}}
+                  {{#each tasks}}
+                    <tr class="m1 bg-white m-1">
+                      <td>{{name}}</td>
+                      <td>{{project.name}}</td>
+                      <td class="small float-end">Due Date: {{dateFormat dueDate "DD/MM/YY"}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="mx-5 mt-5 row">
+            <div class="col-1"></div>
+            <div class="col-9 bg-light">
+              <table class="table table-borderless rounded-4" style="border-collapse: separate; border-spacing: 0 15px">
+                <h4>Projects</h4>
+                <tbody class="bg-white">
+                  {{#each projects}}
+                    <tr class="m-1">
+                        <td>{{name}}</td>
+                        <td>Status: {{status}}</td>
+                        <td>Manager: <a href='{{process.env.HOST}}/users/{{manager._id}}'>{{manager.name}}</a></td>
+                        <td class="small float-end"><span>Start Date: {{dateFormat startDate "DD/MM/YY" }}</span> <span class="mx-1">End Date: {{dateFormat endDate "DD/MM/YY"}}</span></td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

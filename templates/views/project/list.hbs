@@ -29,8 +29,8 @@
                 {{#each projects}}
                   <tr>
                     <td>{{name }}</td>
-                    <td>{{startDate}}</td>
-                    <td>{{endDate}}</td>
+                    <td>{{dateFormat startDate "DD/MM/YY"}}</td>
+                    <td>{{dateFormat endDate "DD/MM/YY"}}</td>
                       <td><a href='{{process.env.HOST}}/projects/{{_id}}'>See Details</a></td>
                   </tr>
                 {{/each}}

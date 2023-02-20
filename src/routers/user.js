@@ -1,18 +1,12 @@
 const express = require('express');
 const User = require('../models/user');
+const Project = require('../models/project');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken')
 const { sendResetPasswordToken } = require('../emails/account');
+const Task = require('../models/task');
 
 const router = new express.Router();
-
-router.get('/users/me', auth, async(req, res) => {
-	try {
-		res.send(req.user)
-	} catch (error) {
-		res.status(500).send(error)
-	}
-})
 
 router.post('/users', async(req, res) => {
 	const user = new User(req.body)
@@ -115,6 +109,17 @@ router.post('/users/updatePassword', async(req, res) => {
 		res.render('user/login', {message: "Password updated successfully"})
 	} catch(error) {
 		res.render('user/updatePassword', {error: error.message, email: req.body.email, token: req.body.token})
+	}
+})
+
+router.get('/users/:id', auth, async(req, res) => {
+	try {
+		const user = await User.findById(req.params.id).populate('projects')
+		const projects = await Project.find({user: user._id}).populate('manager')
+		const tasks = await Task.find({assignee: user._id})
+		res.render('user/profile', {user, tasks, projects})
+	} catch (error) {
+		res.redirect(process.env.HOST)
 	}
 })
 

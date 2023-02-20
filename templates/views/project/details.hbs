@@ -15,8 +15,8 @@
             <div class="card-body text-dark">
               <h2 class="class-title">{{project.name}}</h2>
               <p class="card-text"><strong>Description: </strong>{{project.description}}</p>
-              <p class="card-text"><strong>Start Date: </strong>{{project.startDate}}</p>
-              <p class="card-text"><strong>End Date: </strong>{{project.endDate}}</p>
+              <p class="card-text"><strong>Start Date: </strong>{{dateFormat project.startDate "DD/MM/YY"}}</p>
+              <p class="card-text"><strong>End Date: </strong>{{dateFormat project.endDate "DD/MM/YY"}}</p>
               <a class="btn btn-primary" href='{{process.env.HOST}}/projects/{{project._id}}/tasks/new'>Add Task</a>
             </div>
           </div>
@@ -41,7 +41,7 @@
                                 <div class="card-body text-dark">
                                   <p><strong>{{name }}</strong></p>
                                   <p class="st-italic">{{assignee.name}}</p>
-                                  <p class="text-muted">{{dueDate}}</p>
+                                  <p class="text-muted">{{dateFormat dueDate "DD/MM/YY"}}</p>
                                 </div>
                               </a>
                           </tr>
@@ -59,7 +59,7 @@
                                 <div class="card-body text-dark">
                                   <p><strong>{{name }}</strong></p>
                                   <p class="st-italic">{{assignee.name}}</p>
-                                  <p class="text-muted">{{dueDate}}</p>
+                                  <p class="text-muted">{{dateFormat dueDate "DD/MM/YY"}}</p>
                                 </div>
                               </a>
                           </tr>
@@ -77,7 +77,7 @@
                                 <div class="card-body text-dark">
                                   <p><strong>{{name }}</strong></p>
                                   <p class="st-italic">{{assignee.name}}</p>
-                                  <p class="text-muted">{{dueDate}}</p>
+                                  <p class="text-muted">{{dateFormat dueDate "DD/MM/YY"}}</p>
                                 </div>
                               </a>
                           </tr>

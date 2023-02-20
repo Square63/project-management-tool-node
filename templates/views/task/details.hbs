@@ -16,8 +16,7 @@
           <div class="card-body text-dark">
             <h2 class="class-title">{{task.name}}</h2>
             <p class="card-text"><strong>Description: </strong>{{task.description}}</p>
-            <p class="card-text"><strong>Start Date: </strong>{{task.dueDate}}</p>
-            <p class="card-text"><strong>End Date: </strong>{{project.endDate}}</p>
+            <p class="card-text"><strong>Due Date: </strong>{{dateFormat task.dueDate "DD/MM/YY"}}</p>
             <p class="card-text"><strong>Status: </strong>
               <select class="form-control text-capitalize" id="statusSelect">
                 <option value={{task.status.value}} selected>{{task.status}}</option>
