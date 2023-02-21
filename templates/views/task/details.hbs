@@ -6,13 +6,48 @@
     <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css" />
   </head>
 
-  <body style="background-color: #aacae5;">
+  <body class="bg-black bg-opacity-25">
     <input type="hidden" id="taskId" value={{task._id}}/>
     <input type="hidden" id="projectId" value={{task.project}}/>
     <section>
       {{>navbar}}
       <div class="container py-5 h-100">
-        <div class="card border-dark mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="class-title">{{task.name}}</h2>
+            <p class="card-text"><strong>Description: </strong>{{task.description}}</p>
+            <p class="card-text"><strong>Due Date: </strong>{{dateFormat task.dueDate "DD/MM/YY"}}</p>
+            <p class="card-text"><strong>Status: </strong>
+              <select class="form-control text-capitalize" id="statusSelect">
+                <option value={{task.status.value}} selected>{{task.status}}</option>
+                <option value="to-do">To do</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+            </p>
+
+            <strong>Assignee: </strong>
+            <select class="form-control" id="assigneeSelect" name="assigneeSelect">
+              {{#if task.assignee}}
+                <option value={{task.assignee._id}} selected>{{task.assignee.name}}</option>
+              {{/if}}
+              <option value="">Select Assignee</option>
+              {{#each users}}
+                <option value={{_id}}>{{name}}</option>
+              {{/each}}
+            </select>
+
+            <form action="{{process.env.HOST}}/projects/{{project._id}}/tasks/{{task._id}}/attachments" method="post" class="my-3">
+              <strong>Attachments</strong>
+              <div class="input-group">
+                <input type="file" multiple="true" class="form-control" name="attachments" placeholder="Upload Attachments"  aria-describedby="upload">
+                <button type="submit" class="btn btn-outline-secondary" id="upload">Upload</button>
+              </div>
+              <p>{{task.attachments}}</p>
+            </form>
+          </div>
+        </div>
+        {{!-- <div class="card border-dark mb-3">
           <div class="card-body text-dark">
             <h2 class="class-title">{{task.name}}</h2>
             <p class="card-text"><strong>Description: </strong>{{task.description}}</p>
@@ -40,12 +75,12 @@
             <p><strong>Attachments: </strong>{{task.attachments}}</p>
             <form action="{{process.env.HOST}}/projects/{{project._id}}/tasks/{{task._id}}/attachments" method="post">
               <div class="form-control">
-                <input type="file" class="" multiple="true" name="attachments" id="name" placeholder="Enter Name">
+                <input type="file" class="" multiple="true" name="attachments">
                 <input type="submit" class="btn btn-dark btn-sm btn-block" value="upload">
               </div>
             </form>
           </div>
-        </div>
+        </div> --}}
 
       </div>
     </section>

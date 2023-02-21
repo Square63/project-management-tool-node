@@ -112,6 +112,24 @@ router.post('/users/updatePassword', async(req, res) => {
 	}
 })
 
+router.get('/managers', auth, async(req, res) => {
+	try {
+		const managers = await User.find({role: 'project-manager'})
+		res.send({managers})
+	} catch (error) {
+		res.send({error: error.message})
+	}
+})
+
+router.get('/users', auth, async(req, res) => {
+	try {
+		const users = await User.find()
+		res.send({users})
+	} catch (error) {
+		res.send({error: error.message})
+	}
+})
+
 router.get('/users/:id', auth, async(req, res) => {
 	try {
 		const user = await User.findById(req.params.id).populate('projects')

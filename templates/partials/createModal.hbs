@@ -1,0 +1,27 @@
+<div class="modal" id="createModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="container-fluid">
+        <div class="d-flex">
+          <div class="h4 mx-3">Create new</div>
+          <button type="button" id="projectBtn" class="btn btn-outline-primary active">Project</button>
+          <button type="button" id="taskBtn" class="btn btn-outline-primary mx-2">Task</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div id="projectForm">
+          {{>projectForm}}
+        </div>
+        <div id="taskForm" hidden>
+          {{>taskForm}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src='/js/modal.js'></script>

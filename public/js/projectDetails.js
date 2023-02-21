@@ -1,4 +1,4 @@
-console.log("its loaded successfully")
+console.log("projectDetails.js loaded successfully")
 
 const projectStatus = document.querySelector('#projectStatus')
 const projectManager = document.querySelector('#projectManager')

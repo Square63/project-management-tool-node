@@ -1,0 +1,31 @@
+<form action="{{process.env.HOST}}/tasks" method="post">
+  <div class="form-outline mb-4 mt-4">
+    <label class="form-label">Select Project</label>
+    <select class="form-control" name="project" id="projectSelect">
+    </select>
+  </div>
+
+  <div class="form-outline mb-4">
+    <label class="form-label">Task Title</label>
+    <input type="text" name="name" class="form-control form-control-lg" required/>
+  </div>
+
+  <div class="form-outline mb-4">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control form-control-lg"></textarea>
+  </div>
+
+  <div class="form-outline mb-4">
+    <label class="form-label" >Due Date</label>
+    <input  type="date" name="dueDate" class="form-control form-control-lg" placeholder="Enter Due Date"/>
+  </div>
+
+  <div class="form-outline mb-4">
+    <label class="form-label" >Add Attachments</label>
+    <input type="file" class="form-control form-control-lg" multiple="true" name="attachments" id="name">
+  </div>
+
+  <div class="text-center">
+    <input class="btn btn-primary" type="submit" value="Create">
+  </div>
+</form>

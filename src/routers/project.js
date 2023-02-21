@@ -8,7 +8,7 @@ const router = new express.Router();
 
 router.get('/projects', auth, async(req, res) => {
 	const projects = req.projects
-	res.render("project/list", {projects})
+	res.send({projects})
 })
 
 router.get('/projects/new', auth, async(req, res) => {
@@ -48,6 +48,7 @@ router.post('/projects', auth, async(req, res) => {
 
 		req.user.projects = req.user.projects.concat(project._id)
 		await req.user.save()
+		await project.populate('manager')
 
 		res.render("project/details", {project, message: "Project Created Successfully"})
 	} catch(error) {

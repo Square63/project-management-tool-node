@@ -5,9 +5,9 @@ const router = new express.Router();
 const auth = require('../middleware/auth');
 const authorizeProject = require('../middleware/authorizeProject');
 
-router.get('/projects/:project_id/tasks/new', [auth, authorizeProject], async(req, res) => {
+router.get('/tasks/new', [auth], async(req, res) => {
   try {
-    res.render("task/create", {project: req.project})
+    res.render("task/create", {projects: req.projects})
   } catch (error) {
 		res.render("project/list", {error: error.message, projects: req.projects})
   }
@@ -31,7 +31,7 @@ router.get('/projects/:project_id/tasks/:id', [auth, authorizeProject], async(re
   }
 })
 
-router.post('/projects/:project_id/tasks', [auth, authorizeProject], async(req, res) => {
+router.post('/tasks', [auth, authorizeProject], async(req, res) => {
   try {
     const task = new Task(req.body)
     await task.save()
